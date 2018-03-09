@@ -6,11 +6,18 @@ import Two from '@/components/two'
 Vue.use(Router)
 
 export default new Router({
-    routes: [{
-        path: '/one',
-        component: One
-    }, {
-        path: '/two',
-        component: Two
-    }]
+    routes: [
+        // {
+        //     path: '/',
+        //     redirect: '/Login', //设置默认指向的路径
+        //     name: '登录'
+        // },
+        {
+            path: '/one',
+            component: One
+        }, {
+            path: '/two',
+            component: Two
+        }
+    ]
 })
