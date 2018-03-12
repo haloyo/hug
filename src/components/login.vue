@@ -3,12 +3,18 @@
         <div class="login-content">
             <h2>贷后催收系统 <span class="mini-text">v1.0</span></h2>
             <div class="login-item">
-              <el-input placeholder="账号" clearable v-model="admin" @blur="removeAdmin"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
-              <div class="el-form-item__error" v-show="adminAlert">请输入用户名</div>
+              <el-input placeholder="账号" id="admintext"  clearable v-model="admin" @blur="removeAdmin"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input>
+                <div class="el-form-item__error" v-show="adminAlert">请输入用户名</div>
             </div>
             <div class="login-item">
-              <el-input placeholder="密码" type="password"   clearable v-model="pwd" @blur="removePwd"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input> 
+              <el-input placeholder="密码" id="pwdtext" type="password"   clearable v-model="pwd" @blur="removePwd"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input> 
               <div class="el-form-item__error" v-show="adminPwd">请输入密码</div>
+            </div>
+            <div class="login-item">
+              <el-input placeholder="请输入验证码" >
+                <template slot="append">
+                </template>
+              </el-input>
             </div>
             <div class="login-item login-remmber">
               <el-checkbox v-model="checked">记住用户名和密码</el-checkbox>
@@ -20,11 +26,13 @@
         </div>
     </div>
 </template>
-
 <script>
+//u_name  password
+import axios from "axios";
 export default {
   data() {
     return {
+      isactive: true,
       checked: false, //是否记住密码
       admin: "", //用户名
       pwd: "", //密码
@@ -34,21 +42,20 @@ export default {
   },
   methods: {
     removeAdmin() {
-      this.admin == "" ? (this.adminAlert = true) : (this.adminAlert = false); //失去焦点时提示输入用户名
+      this.adminChange();
     },
     removePwd() {
-      this.pwd == "" ? (this.adminPwd = true) : (this.adminPwd = false); //失去焦点时提示输入密码
+      this.pwdChange();
     },
     goIndex() {
-      console.log(this.admin.replace(/(^\s*)|(\s*$)/g, ""), this.pwd); //登录
-      this.admin == "" ? (this.adminAlert = true) : (this.adminAlert = false);
-      this.pwd == "" ? (this.adminPwd = true) : (this.adminPwd = false);
+      //登录
+      // console.log(this.admin.replace(/(^\s*)|(\s*$)/g, ""), this.pwd);
+      //登录
+      this.adminChange();
+      this.pwdChange();
       if (!this.adminAlert && !this.adminPwd) {
-        this.$message({
-          message: "登录成功",
-          type: "success"
-        });
-        this.$router.push({path:'/'})
+       this.$router.go('/home');
+        this.loginDo();
       }
     },
     clearConent() {
@@ -56,21 +63,58 @@ export default {
       this.admin = "";
       this.pwd = "";
       this.checked = false;
+    },
+    adminChange() {
+      var _admin = document.getElementById("admintext");
+      if (this.admin == "") {
+        this.adminAlert = true;
+        _admin.style.border = "1px solid #ff4949";
+      } else {
+        this.adminAlert = false;
+        _admin.style.border = "1px solid #bfcbd9";
+      } //失去焦点时提示输入用户名
+    },
+    pwdChange() {
+      var _pwd = document.getElementById("pwdtext");
+      if (this.pwd == "") {
+        this.adminPwd = true;
+        _pwd.style.border = "1px solid #ff4949";
+      } else {
+        this.adminPwd = false;
+        _pwd.style.border = "1px solid #bfcbd9";
+      } //失去焦点时提示输入密码
+    },
+    loginDo() {
+      
+      // this.axios
+      //   .post("http://192.168.10.120:8080/login", {
+      //     u_name: this.admin,
+      //     password: this.pwd
+      //   })
+      //   .then(function(response) {
+      //     // if(response.data==1){
+           
+      //     // }else{
+      //     //   this.$message.error('用户名或密码错误');
+      //     // }
+         
+      //   })
+      //   .catch(function(error) {});
     }
   },
-  watch: {
-    admin() {
-      // console.log(this.admin);
-    }
+  watch: {},
+  created() {
+    // drawPic()
   }
 };
 </script>
 
 <style scoped>
+/* #ff4949 */
 .admin-login {
   background-size: 100% 100%;
   position: relative;
-  background: #fff url(../static/img/login-bg.png);
+  background: #fff url(../../static/img/login-bg.png);
   background-size: auto 70%;
   background-position: 15%;
   background-repeat: no-repeat;
@@ -125,5 +169,8 @@ h2 {
   width: 135px;
   height: 40px;
   margin: 0;
+}
+.el-input__inner {
+  border: 1px solid #bfcbd9;
 }
 </style>

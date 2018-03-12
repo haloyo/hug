@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Top></Top>
+    <!-- <Top></Top>
     <div class="admin-content clear">
       <Aside></Aside>
       <div class="admin-right">
@@ -9,23 +9,32 @@
 			      <router-view></router-view>
 		      </transition>
       </div>
-    </div>
+    </div> -->
+    <transition name="fade"
+		            mode="out-in">
+			<router-view></router-view>
+		</transition>
   </div>
 </template>
 
 <script>
-import Aside from "./components/aside";
-import Top from "./components/top";
+// import Aside from "./components/aside";
+// import Top from "./components/top";
+// export default {
+//   components: {
+//     Aside,
+//     Top
+//   },
+//   data() {
+//     return {};
+//   },
+//   methods: {}
+// };
 export default {
-  components: {
-    Aside,
-    Top
-  },
-  data() {
-    return {};
-  },
-  methods: {}
-};
+	name: 'app',
+	components: {
+	}
+}
 </script>
 
 <style scoped>
@@ -36,6 +45,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 .admin-right {
   position: fixed;

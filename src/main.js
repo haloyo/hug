@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '../long.css' //公共样式
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import Login from './Login'
+
 
 Vue.config.productionTip = false
 
@@ -21,6 +21,6 @@ Vue.use(router);
 new Vue({
     el: '#app',
     router,
-    components: { Login },
-    template: '<Login/>'
+    components: { App },
+    template: '<App/>'
 })
