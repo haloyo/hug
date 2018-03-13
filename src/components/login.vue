@@ -10,24 +10,26 @@
               <el-input placeholder="密码" id="pwdtext" type="password"   clearable v-model="pwd" @blur="removePwd"><i slot="prefix" class="el-input__icon el-icon-search"></i></el-input> 
               <div class="el-form-item__error" v-show="adminPwd">请输入密码</div>
             </div>
-            <div class="login-item">
-              <el-input placeholder="请输入验证码" >
-                <template slot="append">
-                </template>
+            <div class="login-item yzm-size">
+              <el-input placeholder="请输入验证码"  v-model="identifying">
               </el-input>
+              <div id="yzm" @click="changeYzm">
+                <canvas id="canvas" width="120" height="40"></canvas>
+              </div>
             </div>
             <div class="login-item login-remmber">
               <el-checkbox v-model="checked">记住用户名和密码</el-checkbox>
             </div>
             <div class="login-btn">
                <el-button plain class="login-btn-item" @click="clearConent">重置</el-button>
-               <el-button type="primary" class="login-btn-item" @click="goIndex">登录</el-button>
+               <el-button type="primary" class="login-btn-item" @click="goIndex" >登录</el-button>
             </div>
         </div>
     </div>
 </template>
 <script>
 //u_name  password
+import { drawPic } from "../../static/js/yanzhengma.js";
 import axios from "axios";
 export default {
   data() {
@@ -37,7 +39,8 @@ export default {
       admin: "", //用户名
       pwd: "", //密码
       adminAlert: false, //提示输入用户名
-      adminPwd: false //提示输入密码
+      adminPwd: false, //提示输入密码
+      identifying: "" //验证码
     };
   },
   methods: {
@@ -51,11 +54,26 @@ export default {
       //登录
       // console.log(this.admin.replace(/(^\s*)|(\s*$)/g, ""), this.pwd);
       //登录
-      this.adminChange();
-      this.pwdChange();
-      if (!this.adminAlert && !this.adminPwd) {
-       this.$router.go('/home');
-        this.loginDo();
+      // this.adminChange();
+      // this.pwdChange();
+      var _canvas = document.getElementById("canvas");
+      var _code = _canvas.getAttribute("code");
+      if (this.identifying == "") {
+        // alert(0)
+        this.$message.error("请输入验证码");
+        return false;
+      } else if (this.identifying != _code) {
+        this.$message.error("验证码输入错误");
+        return false;
+      } else if (this.admin == "") {
+        this.adminChange();
+        return false;
+      } else if (this.pwd == "") {
+        this.pwdChange();
+        return false;
+      } else {
+        sessionStorage.setItem("uis",123123)
+        this.$router.push({ path: "/" });
       }
     },
     clearConent() {
@@ -85,26 +103,35 @@ export default {
       } //失去焦点时提示输入密码
     },
     loginDo() {
-      
-      // this.axios
-      //   .post("http://192.168.10.120:8080/login", {
-      //     u_name: this.admin,
-      //     password: this.pwd
-      //   })
-      //   .then(function(response) {
-      //     // if(response.data==1){
-           
-      //     // }else{
-      //     //   this.$message.error('用户名或密码错误');
-      //     // }
-         
-      //   })
-      //   .catch(function(error) {});
+      this.axios
+        .post("http://192.168.10.120:8080/login", {
+          u_name: this.admin,
+          password: this.pwd
+        })
+        .then(function(response) {
+          // if(response.data==1){
+          // }else{
+          //   this.$message.error('用户名或密码错误');
+          // }
+        })
+        .catch(function(error) {});
+    },
+    changeYzm() {
+      drawPic(); //点击更换验证码
+      this.identifying = ""; //清空验证码
     }
   },
   watch: {},
   created() {
-    // drawPic()
+    setTimeout(function() {
+      drawPic(); //进入页面载入验证码
+      // document.onkeydown = function(e) {
+      //   var key = window.event.keyCode;
+      //   if (key == 13) {
+      //     _this.goIndex();
+      //   }
+      // };
+    }, 1500);
   }
 };
 </script>
@@ -172,5 +199,15 @@ h2 {
 }
 .el-input__inner {
   border: 1px solid #bfcbd9;
+}
+.yzm-size {
+  width: 180px;
+  position: relative;
+}
+#yzm {
+  position: absolute;
+  top: 0;
+  right: -120px;
+  cursor: pointer;
 }
 </style>

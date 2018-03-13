@@ -16,12 +16,17 @@
         </el-table-column>
         <el-table-column  prop="address"  label="地址">
         </el-table-column>
-        <el-table-column label="操作" width="150">
-				<template slot-scope="scope">
-        <el-button  size="mini"  @click="handleEdit()" >编辑</el-button>
-        <el-button  size="mini"  type="danger"  @click="handleDelete()" >删除</el-button>
-      </template>
-			</el-table-column>
+        <el-table-column label="操作" prop="id">
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                @click="handleEdit()" >编辑</el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete()">删除</el-button>
+            </template>
+        </el-table-column>
       </el-table>
     </template>
       <div class="block">
@@ -51,36 +56,37 @@ export default {
     };
   },
   methods: {
-    sousuo() {},
     handleEdit() {
-      console.log(this.coo);
+      // console.log(this.coo);
     }, //编辑
     handleDelete() {
-     this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
           this.$message({
-            type: 'success',
-            message: '删除成功!'
+            type: "success",
+            message: "删除成功!"
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
+            type: "info",
+            message: "已取消删除"
+          });
         });
     }, //删除
     handleSizeChange() {
-       //控制每页条数的方法
+      //控制每页条数的方法
       console.log(2); //获取搜索框中的值
     },
     handleCurrentChange(val) {
       //翻页方法
       console.log(1); //获取搜索框中的值
       console.log(`${val}`); //获取当前页
-      this.creatPage(parseInt(`${val}`),this.content);
+      this.creatPage(parseInt(`${val}`), this.content);
     },
     creatPage(_page, _search) {
       var data = [];
@@ -100,22 +106,25 @@ export default {
             obj.date = _l[i].actual_stop_time;
             obj.name = _l[i].name;
             // _this.coo = _l[i].sales_number;
+            obj.id=_l[i].csid;
             data[i] = obj;
           }
           _this.tableData = data;
+          console.log(data)
           _this.pageall = _long;
         })
         .catch(function(error) {});
     },
     sousuo() {
       console.log(this.content); //获取搜索框中的值
-      this.creatPage(1,this.content); //搜索并调用请求
+      this.creatPage(1, this.content); //搜索并调用请求
     }
   },
   created() {
     this.creatPage(1, this.content);
   },
-  watch: {//监听文本框值的变化
+  watch: {
+    //监听文本框值的变化
     content(oldVal) {
       console.log(oldVal);
     }
