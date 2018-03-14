@@ -1,35 +1,38 @@
 <template>
     <div class="admin-left">
     <el-menu
-      default-active="2"
+      default-active="1"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      background-color="#20222A"
+      background-color="#28313e"
       text-color="#fff"
-      active-text-color="#409eff">
-       <el-submenu index="1">
+      active-text-color="#ffd04b">
+      <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-star-on"></i>
-          <span>我的首页</span>
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1"><router-link to="/one">首页</router-link></el-menu-item>
+          <el-menu-item index="1-1"><router-link :to="{ path: '/one' }">首页</router-link></el-menu-item>
         </el-menu-item-group>
-       
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-document"></i>
-        <span slot="title"><router-link to="/two">导航三</router-link></span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="2-1"><router-link :to="{ path: '/two' }">首页</router-link></el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="3">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="3-1"></el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
     </el-menu>
     </div>
 </template>
@@ -37,12 +40,7 @@
 <script>
 export default {
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
+    
   }
 };
 </script>
@@ -55,7 +53,7 @@ export default {
   left: 0;
   bottom: 0;
   width: 218px;
-  background-color: #20222A;
+  background-color: #28313e;
   overflow: auto;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
@@ -71,5 +69,8 @@ export default {
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+}
+.admin-left a{
+  color: #fff;
 }
 </style>

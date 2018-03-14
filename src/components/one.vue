@@ -103,14 +103,14 @@ export default {
             //数据循环
             var obj = {};
             obj.address = _l[i].address;
-            obj.date = _l[i].actual_stop_time;
+            obj.date = _l[i].actual_stop_time.split(".")[0];
             obj.name = _l[i].name;
             // _this.coo = _l[i].sales_number;
             obj.id=_l[i].csid;
             data[i] = obj;
           }
           _this.tableData = data;
-          console.log(data)
+          // console.log(data)
           _this.pageall = _long;
         })
         .catch(function(error) {});

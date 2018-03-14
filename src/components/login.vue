@@ -72,7 +72,7 @@ export default {
         this.pwdChange();
         return false;
       } else {
-        sessionStorage.setItem("uis",123123)
+        sessionStorage.setItem("kk_user", 123123);
         this.$router.push({ path: "/" });
       }
     },
@@ -125,13 +125,13 @@ export default {
   created() {
     setTimeout(function() {
       drawPic(); //进入页面载入验证码
-      // document.onkeydown = function(e) {
-      //   var key = window.event.keyCode;
-      //   if (key == 13) {
-      //     _this.goIndex();
-      //   }
-      // };
     }, 1500);
+    document.onkeydown = function(e) {
+      var key = window.event.keyCode;
+      if (key == 13) {
+        _this.goIndex();
+      }
+    };
   }
 };
 </script>
