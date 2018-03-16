@@ -13,6 +13,7 @@ import VueAxios from 'vue-axios'
 
 Vue.config.productionTip = false
 
+
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
 Vue.use(router);
@@ -25,9 +26,9 @@ const routers = new VueRouter({
 router.beforeEach((to, from, next) => {
     //判断用户信息
     if (to.path == '/login') {
-        sessionStorage.removeItem('kk_user');
+        sessionStorage.removeItem('user_type');
     }
-    let user = sessionStorage.getItem('kk_user');
+    let user = sessionStorage.getItem('user_type');
     if (!user && to.path != '/login') {
         next({ path: '/login' })
     } else {
@@ -39,6 +40,7 @@ router.beforeEach((to, from, next) => {
 new Vue({
     el: '#app',
     router,
+    axios,
     components: { App },
     template: '<App/>'
 })

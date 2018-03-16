@@ -2,9 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import One from '@/components/one'
 import Two from '@/components/two'
-import Three from '@/components/three'
+import Worker from '@/components/three'
 import Home from '@/components/home'
 import Login from '@/components/login'
+import Count from '@/components/count'
 Vue.use(Router)
 
 export default new Router({
@@ -15,6 +16,7 @@ export default new Router({
     }, {
         path: '/',
         name: '导航一',
+        redirect: '/count',
         component: Home,
         children: [{
             path: '/one',
@@ -23,6 +25,14 @@ export default new Router({
         }, {
             path: '/two',
             component: Two,
+            name: '主页'
+        }, {
+            path: '/worker',
+            component: Worker,
+            name: '主页'
+        }, {
+            path: '/count',
+            component: Count,
             name: '主页'
         }]
     }]

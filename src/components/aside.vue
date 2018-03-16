@@ -5,20 +5,23 @@
       class="el-menu-vertical-demo"
       background-color="#28313e"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-submenu index="1">
+      active-text-color="#d81919" unique-opened >
+      <el-submenu index="1" v-if="this.neumStorage==1">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i><img :src="index_icon" class="index_icon"></i>
           <span>导航一</span>
         </template>
         <el-menu-item-group>
           <el-menu-item index="1-1"><router-link :to="{ path: '/one' }">首页</router-link></el-menu-item>
         </el-menu-item-group>
+        <el-menu-item-group>
+          <el-menu-item index="1-2"><router-link :to="{ path: '/count' }">统计</router-link></el-menu-item>
+        </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span>导航二</span>
         </template>
         <el-menu-item-group>
           <el-menu-item index="2-1"><router-link :to="{ path: '/two' }">首页</router-link></el-menu-item>
@@ -27,10 +30,10 @@
       <el-submenu index="3">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span>员工管理</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1"></el-menu-item>
+          <el-menu-item index="3-1"><router-link :to="{ path: '/worker' }">添加员工</router-link></el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -39,8 +42,18 @@
 
 <script>
 export default {
+  data(){
+    return{
+        neumStorage:null,
+        uniqueOpened: false,
+        index_icon:'../../static/img/index.png'
+    }
+  },
   methods: {
     
+  },
+  created(){
+      this.neumStorage=localStorage.getItem("user")
   }
 };
 </script>
@@ -55,6 +68,12 @@ export default {
   width: 218px;
   background-color: #28313e;
   overflow: auto;
+}
+.el-submenu__title{
+  text-align: left;
+}
+.el-submenu .el-menu-item{
+  padding: 0 !important;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
@@ -72,5 +91,7 @@ export default {
 }
 .admin-left a{
   color: #fff;
+  display: inline-block;
+  width: 100%;
 }
 </style>

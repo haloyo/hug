@@ -1,5 +1,8 @@
 <template>
   <div class="admin-rightcon">
+    <div class="rightcon-nav">
+       菜单二  
+    </div>
     <div class="cus-menu">
       <div class="demo-input-suffix">
         客户姓名
@@ -27,6 +30,7 @@
           <el-button size="mini" type="primary" plain class="cus-size">重置</el-button>
     </div>
     </div>
+    
   </div>
 </template>
 
@@ -57,6 +61,10 @@
 </script>
 
 <style scoped>
+.cus-menu{
+  margin: 10px 0;
+  padding-left: 10px;
+}
 .cus-size{
   width: 100px;
   margin: 0 5px;

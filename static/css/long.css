@@ -154,3 +154,16 @@ ol {
     color: #475669;
     font-weight: bold;
 }
+
+.admin_icon {
+    margin: 12px 0 0 5px;
+}
+
+.tablePage {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.index_icon {
+    margin-right: 5px;
+}

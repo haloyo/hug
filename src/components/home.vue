@@ -7,8 +7,8 @@
               欢迎您,管理员<i class="el-icon-caret-bottom el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item class="clearfix">
-                退出
+              <el-dropdown-item class="clearfix" >
+                <span @click="overLogin">退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -46,6 +46,10 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    overLogin(){
+      this.$router.push({path:'/login'});
+      console.log(1)
     }
   }
 };

@@ -29,15 +29,16 @@
         </el-table-column>
       </el-table>
     </template>
-      <div class="block">
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page.sync="currentPage3"
-      :page-size="1"
-      layout="prev, pager, next, jumper"
-      :total="pageall">
-    </el-pagination>
+    <div class="block tablePage">
+      <el-pagination
+      background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage3"
+        :page-size="1"
+        layout="prev, pager, next, jumper"
+        :total="pageall">
+      </el-pagination>
   </div>
    
     </div>
@@ -45,7 +46,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
